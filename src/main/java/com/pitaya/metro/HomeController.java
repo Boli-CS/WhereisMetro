@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pitaya.metor.domains.MetroCurrentStatusDomain;
-import com.pitaya.metor.enums.SZMetrosEnum;
+import com.pitaya.metro.domains.MetroCurrentStatusDomain;
+import com.pitaya.metro.enums.SZMetrosEnum;
 import com.pitaya.metro.service.CalculateMetroStatusService;
 
 /**

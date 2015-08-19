@@ -1,4 +1,4 @@
-package com.pitaya.metor.enums;
+package com.pitaya.metro.enums;
 
 public enum SZMetrosEnum {
 	

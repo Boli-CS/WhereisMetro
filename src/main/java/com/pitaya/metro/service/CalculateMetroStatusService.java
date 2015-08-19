@@ -1,7 +1,7 @@
 package com.pitaya.metro.service;
 
-import com.pitaya.metor.domains.MetroCurrentStatusDomain;
-import com.pitaya.metor.enums.SZMetrosEnum;
+import com.pitaya.metro.domains.MetroCurrentStatusDomain;
+import com.pitaya.metro.enums.SZMetrosEnum;
 
 public interface CalculateMetroStatusService {
 

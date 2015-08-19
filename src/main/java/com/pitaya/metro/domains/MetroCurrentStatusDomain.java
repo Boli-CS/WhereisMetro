@@ -1,9 +1,9 @@
-package com.pitaya.metor.domains;
+package com.pitaya.metro.domains;
 
 import java.util.Date;
 
-import com.pitaya.metor.enums.MetroStationsEnum;
-import com.pitaya.metor.enums.SZMetrosEnum;
+import com.pitaya.metro.enums.MetroStationsEnum;
+import com.pitaya.metro.enums.SZMetrosEnum;
 
 /**
  * 地铁当前状态
