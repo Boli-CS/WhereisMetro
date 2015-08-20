@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.pitaya.metro.daos.IMetroLineDao">
+	<resultMap type="com.pitaya.metro.models.MetroLine" id="BaseResultMap">
+		<id column="LineNum" property="lineNum" jdbcType="INTEGER"/>
+		<id column="DepartStationNum" property="departStationNum" jdbcType="INTEGER"/>
+		<result column="LineName" property="lineName" jdbcType="CHAR"/>
+		<result column="FirstTime" property="firstTime" jdbcType="TIME"/>
+		<result column="LastTime" property="lastTime" jdbcType="TIME"/>
+		<result column="FastigiumInterval" property="fastigiumInterval" jdbcType="INTEGER"/>
+		<result column="UsualInterval" property="usualInterval" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="getMetroLine" resultType="com.pitaya.metro.models.MetroLine">
+		SELECT * FROM MetroLine 
+			WHERE MetroLine.LineNum = #{lineNum, jdbcType=INTEGER}
+				and MetroLine.DepartStationNum = #{departStationNum, jdbcType=INTEGER}
+	</select>
+</mapper>

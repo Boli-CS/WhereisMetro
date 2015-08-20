@@ -3,7 +3,7 @@ package com.pitaya.metro.domains;
 import java.util.Date;
 
 import com.pitaya.metro.enums.MetroStationsEnum;
-import com.pitaya.metro.enums.SZMetrosEnum;
+import com.pitaya.metro.enums.MetroLineEnum;
 
 /**
  * 地铁当前状态
@@ -15,17 +15,7 @@ public class MetroCurrentStatusDomain {
 	/**
 	 * 记录的地铁线路
 	 */
-	SZMetrosEnum szMetrosEnum;
-	
-	/**
-	 * 出发时间
-	 */
-	Date departTime;
-
-	/**
-	 * 到达时间
-	 */
-	Date arriveTime;
+	MetroLineEnum metroLineEnum;
 	
 	/**
 	 * 前一站
@@ -42,28 +32,12 @@ public class MetroCurrentStatusDomain {
 	 */
 	long seconds;
 
-	public SZMetrosEnum getSzMetrosEnum() {
-		return szMetrosEnum;
+	public MetroLineEnum getMetroLineEnum() {
+		return metroLineEnum;
 	}
 
-	public void setSzMetrosEnum(SZMetrosEnum szMetrosEnum) {
-		this.szMetrosEnum = szMetrosEnum;
-	}
-
-	public Date getDepartTime() {
-		return departTime;
-	}
-
-	public void setDepartTime(Date departTime) {
-		this.departTime = departTime;
-	}
-
-	public Date getArriveTime() {
-		return arriveTime;
-	}
-
-	public void setArriveTime(Date arriveTime) {
-		this.arriveTime = arriveTime;
+	public void setMetroLineEnum(MetroLineEnum metroLineEnum) {
+		this.metroLineEnum = metroLineEnum;
 	}
 
 	public MetroStationsEnum getPrevStation() {

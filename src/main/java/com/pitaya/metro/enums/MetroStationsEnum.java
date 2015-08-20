@@ -63,4 +63,13 @@ public enum MetroStationsEnum {
 		this.code = code;
 		this.name = name;
 	}
+
+	public Integer getCode() {
+		return code;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
 }

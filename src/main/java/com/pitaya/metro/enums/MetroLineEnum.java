@@ -1,6 +1,6 @@
 package com.pitaya.metro.enums;
 
-public enum SZMetrosEnum {
+public enum MetroLineEnum {
 	
 	LUO_BAO		(1, "罗宝线"),
 	SHE_KOU		(2, "蛇口线"),
@@ -11,7 +11,7 @@ public enum SZMetrosEnum {
 	Integer code;
 	String name;
 
-	private SZMetrosEnum(Integer code, String name) {
+	private MetroLineEnum(Integer code, String name) {
 		this.code = code;
 		this.name = name;
 	}
@@ -24,8 +24,8 @@ public enum SZMetrosEnum {
 		return name;
 	}
 	
-	public static SZMetrosEnum getInstance(Integer code) {
-		for(SZMetrosEnum szMetrosEnum : values()) {
+	public static MetroLineEnum getInstance(Integer code) {
+		for(MetroLineEnum szMetrosEnum : values()) {
 			if (szMetrosEnum.getCode().equals(code)) {
 				return szMetrosEnum;
 			}

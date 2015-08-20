@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pitaya.metro.domains.MetroCurrentStatusDomain;
-import com.pitaya.metro.enums.SZMetrosEnum;
+import com.pitaya.metro.enums.MetroLineEnum;
+import com.pitaya.metro.enums.MetroStationsEnum;
 import com.pitaya.metro.service.CalculateMetroStatusService;
 
 /**
@@ -31,11 +32,11 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, @RequestParam("metroID")String metroID) {
-		switch (SZMetrosEnum.getInstance(Integer.parseInt(metroID))) {
+		switch (MetroLineEnum.getInstance(Integer.parseInt(metroID))) {
 		case LUO_BAO:
 			MetroCurrentStatusDomain metroCurrentStatusDomain = 
-				calculateMetroStatusService.getMetroCurrentStatus(SZMetrosEnum.LUO_BAO);
-			
+				calculateMetroStatusService.getMetroCurrentStatus(MetroLineEnum.LUO_BAO, MetroStationsEnum.luohu);
+			model.addAttribute("jichangdong", metroCurrentStatusDomain.getSeconds());
 			break;
 		case SHE_KOU:
 			
