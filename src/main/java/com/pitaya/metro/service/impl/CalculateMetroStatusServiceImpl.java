@@ -26,7 +26,8 @@ public class CalculateMetroStatusServiceImpl implements CalculateMetroStatusServ
 	private final MetroStationsEnum currentStation = MetroStationsEnum.laojie;
 	
 	@Override
-	public MetroCurrentStatusDomain getMetroCurrentStatus(MetroLineEnum metroLineEnum, MetroStationsEnum metroStationsEnum) {
+	public MetroCurrentStatusDomain getMetroCurrentStatus(MetroLineEnum metroLineEnum, 
+			MetroStationsEnum metroStationsEnum) {
 		MetroCurrentStatusDomain metroCurrentStatusDomain = new MetroCurrentStatusDomain();
 		
 		Time currentTime = new Time(System.currentTimeMillis());
@@ -35,7 +36,7 @@ public class CalculateMetroStatusServiceImpl implements CalculateMetroStatusServ
 				metroLineEnum.getCode(),metroStationsEnum.getCode(), currentStation.getCode());
 		//下一班到达的车为departLineTime之前出发的第一班车
 		Time departLineTime = new Time(currentTime.getTime() - goThroughTime * 1000);
-		MetroLine metroLine = IMetroLineDao.getMetroLine(metroLineEnum.getCode(), MetroStationsEnum.luohu.getCode());
+		MetroLine metroLine = IMetroLineDao.getMetroLine(metroLineEnum.getCode(), metroStationsEnum.getCode());
 		Time actualDepartTime = metroLine.getFirstTime();
 		while (actualDepartTime.before(departLineTime)) {
 			actualDepartTime.setTime(actualDepartTime.getTime() + metroLine.getFastigiumInterval() * 60 * 1000);
@@ -45,10 +46,6 @@ public class CalculateMetroStatusServiceImpl implements CalculateMetroStatusServ
 		Integer residueTime = ((int)(actualDepartTime.getTime() - departLineTime.getTime())) / 1000;
 		metroCurrentStatusDomain.setMetroLineEnum(metroLineEnum);
 		metroCurrentStatusDomain.setSeconds(residueTime);
-		metroCurrentStatusDomain.setPrevStation(MetroStationsEnum.luohu);
-		metroCurrentStatusDomain.setNextStation(currentStation);
-		
-		
 		return metroCurrentStatusDomain;
 	}
 

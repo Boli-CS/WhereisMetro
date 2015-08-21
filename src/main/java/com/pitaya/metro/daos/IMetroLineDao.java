@@ -8,7 +8,8 @@ public interface IMetroLineDao {
 
 	/**
 	 * 根据线路编号获取线路信息
-	 * @param lineNum
+	 * @param lineNum			地铁线路编号
+	 * @param departStationNum	出发站台
 	 * @return
 	 */
 	MetroLine getMetroLine(

@@ -14,9 +14,14 @@
 	</select>
 	
 	<select id="getGoThroughTime" resultType="java.lang.Integer">
-		SELECT SUM(MetroStation.IntervalTime) FROM MetroStation 
-			<![CDATA[WHERE MetroStation.StationNum > #{startStationNum, jdbcType=INTEGER} 
-				AND MetroStation.StationNum <= #{currentStationNum, jdbcType=INTEGER}]]>
+		<![CDATA[
+			select sum(
+				case when StationNum > least(#{currentStationNum, jdbcType=INTEGER}, #{startStationNum, jdbcType=INTEGER}) and
+		                     StationNum <= greatest(#{currentStationNum, jdbcType=INTEGER}, #{startStationNum, jdbcType=INTEGER})
+		             then IntervalTime else 0
+		           end)
+			from MetroStation
+		]]>
 	</select>
 	
 </mapper>
