@@ -25,6 +25,13 @@ public class CalculateMetroStatusServiceImpl implements CalculateMetroStatusServ
 	
 	private final MetroStationsEnum currentStation = MetroStationsEnum.laojie;
 	
+	//早高峰和晚高峰起止时间
+	private final Time morningFastigiumStartTime = new Time(7,30,00);
+	private final Time morningFastigiumEndTime = new Time(9,00,00);
+	private final Time eveningFastigiumStartTime = new Time(17,30,00);
+	private final Time eveningFastigiumEndTime = new Time(19,30,00);
+	
+	
 	@Override
 	public MetroCurrentStatusDomain getMetroCurrentStatus(MetroLineEnum metroLineEnum, 
 			MetroStationsEnum metroStationsEnum) {
@@ -39,10 +46,15 @@ public class CalculateMetroStatusServiceImpl implements CalculateMetroStatusServ
 		MetroLine metroLine = IMetroLineDao.getMetroLine(metroLineEnum.getCode(), metroStationsEnum.getCode());
 		Time actualDepartTime = metroLine.getFirstTime();
 		while (actualDepartTime.before(departLineTime)) {
-			actualDepartTime.setTime(actualDepartTime.getTime() + metroLine.getFastigiumInterval() * 60 * 1000);
+			if( (actualDepartTime.after(morningFastigiumStartTime) && actualDepartTime.before(morningFastigiumEndTime)
+			 || (actualDepartTime.after(eveningFastigiumStartTime) && actualDepartTime.before(eveningFastigiumEndTime)))){
+				actualDepartTime.setTime(actualDepartTime.getTime() + metroLine.getFastigiumInterval() * 60 * 1000);
+			}
+			else {
+				actualDepartTime.setTime(actualDepartTime.getTime() + metroLine.getUsualInterval() * 60 * 1000);
+			}
 		}
 		
-		System.out.println("下一班车的发车时间为：" + actualDepartTime);
 		Integer residueTime = ((int)(actualDepartTime.getTime() - departLineTime.getTime())) / 1000;
 		metroCurrentStatusDomain.setMetroLineEnum(metroLineEnum);
 		metroCurrentStatusDomain.setSeconds(residueTime);

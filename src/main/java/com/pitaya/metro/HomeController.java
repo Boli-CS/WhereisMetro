@@ -36,11 +36,13 @@ public class HomeController {
 		case LUO_BAO:
 			MetroCurrentStatusDomain metroCurrentStatusDomain = 
 				calculateMetroStatusService.getMetroCurrentStatus(MetroLineEnum.LUO_BAO, MetroStationsEnum.luohu);
-			model.addAttribute("jichangdong", metroCurrentStatusDomain.getSeconds());
+			model.addAttribute("jichangdong_min", metroCurrentStatusDomain.getSeconds() / 60);
+			model.addAttribute("jichangdong_sec", metroCurrentStatusDomain.getSeconds() % 60);
 			
 			metroCurrentStatusDomain = 
 					calculateMetroStatusService.getMetroCurrentStatus(MetroLineEnum.LUO_BAO, MetroStationsEnum.jichangdong);
-			model.addAttribute("luohu", metroCurrentStatusDomain.getSeconds());
+			model.addAttribute("luohu_min", metroCurrentStatusDomain.getSeconds() / 60);
+			model.addAttribute("luohu_sec", metroCurrentStatusDomain.getSeconds() % 60);
 			
 			break;
 		case SHE_KOU:
