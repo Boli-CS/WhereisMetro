@@ -23,7 +23,7 @@ public class CalculateMetroStatusServiceImpl implements CalculateMetroStatusServ
 	@Autowired
 	IMetroLineDao IMetroLineDao;
 	
-	private final MetroStationsEnum currentStation = MetroStationsEnum.laojie;
+	private final MetroStationsEnum currentStation = MetroStationsEnum.laojie_1;
 	
 	//早高峰和晚高峰起止时间
 	private final Time morningFastigiumStartTime = new Time(7,30,00);
@@ -57,7 +57,7 @@ public class CalculateMetroStatusServiceImpl implements CalculateMetroStatusServ
 		
 		Integer residueTime = ((int)(actualDepartTime.getTime() - departLineTime.getTime())) / 1000;
 		metroCurrentStatusDomain.setMetroLineEnum(metroLineEnum);
-		metroCurrentStatusDomain.setSeconds(residueTime);
+		metroCurrentStatusDomain.setSeconds(residueTime.longValue());
 		return metroCurrentStatusDomain;
 	}
 

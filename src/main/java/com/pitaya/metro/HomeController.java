@@ -1,6 +1,10 @@
 package com.pitaya.metro;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,41 +31,66 @@ public class HomeController {
 	@Autowired
 	CalculateMetroStatusService calculateMetroStatusService;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, @RequestParam("metroID")String metroID) {
+	public String home(Locale locale, Model model, @RequestParam(value="metroID",required=false)String metroID) {
+		Map<String, String> attributes = null;
 		switch (MetroLineEnum.getInstance(Integer.parseInt(metroID))) {
 		case LUO_BAO:
-			MetroCurrentStatusDomain metroCurrentStatusDomain = 
-				calculateMetroStatusService.getMetroCurrentStatus(MetroLineEnum.LUO_BAO, MetroStationsEnum.luohu);
-			model.addAttribute("jichangdong_min", metroCurrentStatusDomain.getSeconds() / 60);
-			model.addAttribute("jichangdong_sec", metroCurrentStatusDomain.getSeconds() % 60);
-			
-			metroCurrentStatusDomain = 
-					calculateMetroStatusService.getMetroCurrentStatus(MetroLineEnum.LUO_BAO, MetroStationsEnum.jichangdong);
-			model.addAttribute("luohu_min", metroCurrentStatusDomain.getSeconds() / 60);
-			model.addAttribute("luohu_sec", metroCurrentStatusDomain.getSeconds() % 60);
-			
+			attributes = generateAttributesMap(MetroLineEnum.LUO_BAO);
 			break;
 		case SHE_KOU:
-			
+			attributes = generateAttributesMap(MetroLineEnum.SHE_KOU);
 			break;
 		case LONG_GANG:
-			
+			attributes = generateAttributesMap(MetroLineEnum.LONG_GANG);
 			break;
 		case LONG_HUA:
-			
+			attributes = generateAttributesMap(MetroLineEnum.LONG_HUA);
 			break;
 		case HUAN_ZHONG:
-			
+			attributes = generateAttributesMap(MetroLineEnum.HUAN_ZHONG);
 			break;
 
 		default:
 			break;
 		}	
+		if(null != attributes) {
+			model.addAllAttributes(attributes);
+		}
 		return "home";
+	}
+	
+	public Map<String, String> generateAttributesMap(MetroLineEnum lineEnum) {
+
+		List<String> attributesList = new ArrayList<String>();
+		Map<String, String> attributes = new HashMap<String, String>();
+		
+		MetroCurrentStatusDomain metroCurrentStatusDomain = 
+				calculateMetroStatusService.getMetroCurrentStatus(lineEnum, MetroStationsEnum.getStartStation(lineEnum));
+			attributes.put("title", lineEnum.getName());
+			attributesList.add("罗宝线");
+			
+			attributes.put("end_station", MetroStationsEnum.getEndStation(lineEnum).getName());
+			attributesList.add(MetroStationsEnum.getEndStation(lineEnum).getName());
+			
+			attributes.put("end_station_min", Long.toString(metroCurrentStatusDomain.getSeconds() / 60));
+			attributesList.add(Long.toString(metroCurrentStatusDomain.getSeconds() / 60));
+			
+			attributes.put("end_station_sec", Long.toString(metroCurrentStatusDomain.getSeconds() % 60));
+			attributesList.add(Long.toString(metroCurrentStatusDomain.getSeconds() % 60));
+			
+			metroCurrentStatusDomain = 
+					calculateMetroStatusService.getMetroCurrentStatus(lineEnum, MetroStationsEnum.getEndStation(lineEnum));
+			
+			attributes.put("start_station", MetroStationsEnum.getStartStation(lineEnum).getName());
+			attributesList.add(MetroStationsEnum.getStartStation(lineEnum).getName());
+			
+			attributes.put("start_station_min", Long.toString(metroCurrentStatusDomain.getSeconds() / 60));
+			attributesList.add(Long.toString(metroCurrentStatusDomain.getSeconds() / 60));
+			
+			attributes.put("start_station_sec", Long.toString(metroCurrentStatusDomain.getSeconds() % 60));
+			attributesList.add(Long.toString(metroCurrentStatusDomain.getSeconds() % 60));
+			return attributes;
 	}
 	
 }

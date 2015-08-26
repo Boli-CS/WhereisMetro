@@ -30,7 +30,7 @@ public class MetroCurrentStatusDomain {
 	/**
 	 * 距离下一站的时间(s)
 	 */
-	long seconds;
+	Long seconds;
 
 	public MetroLineEnum getMetroLineEnum() {
 		return metroLineEnum;
@@ -56,11 +56,11 @@ public class MetroCurrentStatusDomain {
 		this.nextStation = nextStation;
 	}
 
-	public long getSeconds() {
+	public Long getSeconds() {
 		return seconds;
 	}
 
-	public void setSeconds(long seconds) {
+	public void setSeconds(Long seconds) {
 		this.seconds = seconds;
 	}
 	
