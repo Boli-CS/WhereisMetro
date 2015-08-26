@@ -34,6 +34,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, @RequestParam(value="metroID",required=false)String metroID) {
 		Map<String, String> attributes = null;
+		if (null == MetroLineEnum.getInstance(Integer.parseInt(metroID))) {
+			return "notFound";
+		}
 		switch (MetroLineEnum.getInstance(Integer.parseInt(metroID))) {
 		case LUO_BAO:
 			attributes = generateAttributesMap(MetroLineEnum.LUO_BAO);
@@ -57,6 +60,7 @@ public class HomeController {
 		if(null != attributes) {
 			model.addAllAttributes(attributes);
 		}
+		
 		return "home";
 	}
 	
