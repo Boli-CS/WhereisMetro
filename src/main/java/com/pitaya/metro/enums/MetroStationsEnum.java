@@ -216,7 +216,7 @@ public enum MetroStationsEnum {
 		MetroStationsEnum endStation = null;
 		switch (lineNum) {
 		case LUO_BAO:
-			endStation = shijiezhichuang_1;
+			endStation = jichangdong;
 			break;
 		case SHE_KOU:
 			endStation = xinxiu;
